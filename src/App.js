@@ -18,7 +18,9 @@ function App() {
   });
 
   async function searchSubreddit(subreddit) {
-    const response = await axios.get(`${url}${subreddit}.json?raw_json=1`);
+    const response = await axios.get(
+      `${corsproxy}${url}${subreddit}.json?raw_json=1`
+    );
     setReddit({
       ...reddit,
       currentSubreddit: subreddit,
@@ -37,9 +39,9 @@ function App() {
 
   async function nextPage() {
     const response = await axios.get(
-      `${url}${reddit.currentSubreddit}.json?count=${reddit.page * 25}&after=${
-        reddit.after
-      }&raw_json=1`
+      `${corsproxy}${url}${reddit.currentSubreddit}.json?count=${
+        reddit.page * 25
+      }&after=${reddit.after}&raw_json=1`
     );
 
     setReddit({
@@ -55,7 +57,7 @@ function App() {
 
   async function prevPage() {
     const response = await axios.get(
-      `${url}${reddit.currentSubreddit}.json?count=${
+      `${corsproxy}${url}${reddit.currentSubreddit}.json?count=${
         (reddit.page - 1) * 25
       }&before=${reddit.before}&raw_json=1`
     );

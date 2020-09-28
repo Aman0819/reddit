@@ -1,0 +1,39 @@
+// Imports
+@import url(https://fonts.googleapis.com/css?family=Nunito:200,200italic,300,300italic,regular,italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+// Variables
+$desktop: 960px;
+$tablet: 600px;
+$ff-s: "Nunito";
+
+/*
+  ==========
+    Mixins
+  ==========
+*/
+// For tablet
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content
+  }
+};
+
+// For desktop
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content
+  }
+};
+
+:root {
+  font-size: 12px;
+  font-family: $ff-s;
+
+  @include tablet {
+    font-size: 13px;
+  }
+
+  @include desktop {
+    font-size: 14px;
+  }
+}

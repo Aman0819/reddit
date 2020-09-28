@@ -1,0 +1,194 @@
+/* Imports */
+@import url(https://fonts.googleapis.com/css?family=Nunito:200,200italic,300,300italic,regular,italic,600,600italic,700,700italic,800,800italic,900,900italic);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,regular,italic,600,600italic,700,700italic,800,800italic);
+
+/* CSS Variables */
+:root {
+  --ff-s: "Nunito";
+  --ff-ss: "Open Sans";
+}
+
+/* To enable the dark mode */
+/* html {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+*.inverted {
+  filter: invert(1) hue-rotate(0);
+} */
+
+/*
+  ==========
+    Mixins
+  ==========
+*/
+:root {
+  font-size: 12px;
+  font-family: var(--ff-s);
+}
+
+@media (min-width: 600px) {
+  :root {
+    font-size: 13px;
+  }
+}
+
+;
+
+@media (min-width: 960px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+;
+
+/* Resets */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  padding: .5em;
+  box-shadow: inset 0 0 .5em black;
+}
+
+/* Styling */
+body {
+  background: #f5f5f5;
+}
+
+#logo {
+  cursor: pointer;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font: normal normal 700 5rem/5rem var(--ff-ss), sans-serif;
+  text-transform: uppercase;
+  color: #f5f5f5;
+
+  text-shadow: 0 0 .2em rgba(32, 32, 32, .8);
+}
+
+#logo:hover {
+  letter-spacing: .025em;
+  text-shadow:
+    0.05em 0 0 rgba(255, 0, 0, 0.75),
+    -0.025em 0.05em 0 rgba(0, 255, 0, 0.75),
+    0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  animation: glitch 700ms infinite;
+}
+
+
+#logo span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+#logo span[class*="half"] {
+  position: relative;
+  opacity: .9;
+}
+
+#logo:hover span[class*="half"] {
+  color: #f5f5f5;
+  opacity: 1;
+  animation: glitch 700ms infinite;
+}
+
+#logo:hover span:first-of-type {
+  opacity: .8;
+  transform: translate(-0.0125em, 0.0125em);
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  animation: glitch 500ms infinite;
+}
+
+#logo:hover span:last-of-type {
+  opacity: .8;
+  transform: translate(0.0125em, -0.0125em);
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  animation: glitch 900ms infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow:
+      0.05em 0 0 rgba(255, 0, 0, 0.75),
+      -0.025em 0.05em 0 rgba(0, 255, 0, 0.75),
+      0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+
+  19% {
+    text-shadow:
+      0.05em 0 0 rgba(255, 0, 0, 0.75),
+      -0.025em 0.05em 0 rgba(0, 255, 0, 0.75),
+      0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+
+  20% {
+    text-shadow:
+      -0.05em 0.025em 0 rgba(255, 0, 0, 0.75),
+      0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+      -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+
+  64% {
+    text-shadow:
+      -0.05em 0.025em 0 rgba(255, 0, 0, 0.75),
+      0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+      -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+
+  65% {
+    text-shadow:
+      0.025em -0.025em 0 rgba(255, 0, 0, 0.75),
+      -0.05em 0.025em 0 rgba(0, 255, 0, 0.75),
+      0.05em -0.025em 0 rgba(0, 0, 255, 0.75);
+  }
+
+  99% {
+    text-shadow:
+      0.025em -0.025em 0 rgba(255, 0, 0, 0.75),
+      -0.05em 0.025em 0 rgba(0, 255, 0, 0.75),
+      0.05em -0.025em 0 rgba(0, 0, 255, 0.75);
+  }
+
+  100% {
+    text-shadow:
+      -0.025em 0.025em 0 rgba(255, 0, 0, 0.75),
+      0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+      -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons button {
+  font-size: 2rem;
+  padding: .5em;
+  margin: .5em;
+  background: #aaaaaac4;
+  border-radius: .2em;
+  box-shadow: 0 0 .5em rgba(32, 32, 32, .4);
+}
+
+.buttons button:hover {
+  background: #aaaaaa;
+  box-shadow: 0 0 .7em rgba(32, 32, 32, .5);
+}

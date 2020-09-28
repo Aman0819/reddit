@@ -1,0 +1,296 @@
+// Variables
+$desktop: 960px;
+$tablet: 600px;
+$br: 1em;
+$trasition1: cubic-bezier(.21, 1.00, 0.81, 1.00);
+
+// CSS variables
+:root {
+  --cardSize: 320px;
+}
+
+// Resets
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+// Styling
+body {
+  background: #f5f5f5;
+}
+
+// Color map
+$color: (primary: #202C39,
+  primary-light: lighten(#202C39, 20%),
+  primary-dark: darken(#202C39, 20%),
+  secondary: #283845,
+  secondary-light: lighten(#283845, 20%),
+  secondary-dark: darken(#283845, 20%),
+  ternary: #8BE8CB,
+  ternary-light: lighten(#8BE8CB, 20%),
+  ternary-dark: darken(#8BE8CB, 20%),
+  fourth: #B75D69,
+  fourth-light: lighten(#B75D69, 20%),
+  fourth-dark: darken(#B75D69, 20%),
+  reddit: #FF5700);
+
+// Colors function
+@function colors($color-name) {
+  @return map-get($color, $color-name);
+}
+
+/*
+  ==========
+    Mixins
+  ==========
+*/
+// For tablet
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content
+  }
+}
+
+;
+
+// For desktop
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content
+  }
+}
+
+;
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--cardSize), 1fr));
+  place-items: center;
+  gap: 4em 2em;
+  max-width: 90%;
+  margin: 5em auto;
+  color: #333;
+
+  @include desktop {
+    max-width: 75%;
+  }
+}
+
+img {
+  // max-width: 100%;
+}
+
+// Card
+.card {
+  position: relative;
+  width: var(--cardSize);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rank {
+  position: absolute;
+  font-weight: bold;
+  font-size: 1.5rem;
+  top: -.02em;
+  right: .85em;
+  background: rgba(colors(secondary-dark), .7);
+  color: #fafafa;
+  clip-path: polygon(100% 0%, 100% 100%, 50% 85%, 0 100%, 0 0);
+  padding: .5em .5em .75em;
+}
+
+.front {
+
+  transition: transform 200ms $trasition1 100ms;
+  background: transparent;
+
+  .img-main {
+    min-height: 360px;
+    max-height: 360px;
+    width: 100%;
+    object-fit: cover;
+    object-position: 0;
+    border-radius: 1em;
+
+  }
+
+  .sr-name {
+    margin: .75em 0;
+    padding: 0;
+    font-size: 1.75rem;
+    border-radius: calc(#{$br} - .5em);
+  }
+
+  .details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .sr-subs {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+
+  .reddit-logo {
+
+    i {
+      font-size: 2.5rem;
+      color: colors(reddit);
+    }
+  }
+}
+
+.back {
+  opacity: 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .sr-details {
+    line-height: 1.4;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: .5em;
+
+    span {
+      display: block;
+    }
+
+    .sr-caption {
+      color: colors(primary);
+      margin: 1em 0 1.5em;
+      text-align: justify;
+    }
+  }
+
+  .reddit-logo {
+    p {
+      margin: .2em 0;
+    }
+
+    i {
+      font-size: 3.5rem;
+      color: colors(reddit);
+    }
+  }
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: $br;
+  z-index: -1;
+  transform: scale(0, .5);
+  opacity: 0;
+}
+
+.card:hover {
+
+  .rank {
+    opacity: 0;
+    transition: all 250ms $trasition1 100ms;
+  }
+
+  .front {
+    transform: translateY(-30%) scale(.7);
+    transition: transform 200ms $trasition1 100ms;
+
+    .sr-name {
+      animation: srName 300ms forwards;
+      font-size: 3rem;
+      margin: .5em 0;
+
+      @include desktop {
+        font-size: 2.5rem;
+      }
+    }
+
+    .details {
+      display: none;
+    }
+  }
+
+  .back {
+    transition: opacity 300ms $trasition1 100ms;
+    opacity: 1;
+
+    .sr-details {
+
+      font-size: 1.25rem;
+
+      @include desktop {
+        font-size: 1.1rem;
+      }
+
+      .sr-sub-count {
+        font-size: 1.7rem;
+
+        @include desktop {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+
+  .background {
+    transition:
+      transform 250ms $trasition1 100ms,
+      opacity 100ms linear 100ms;
+    transform: scale(1.1, 1.05);
+    opacity: 1;
+    box-shadow: 0 0 1em rgba($color: #000000, $alpha: .3);
+
+    .rank {
+      background: rgba(colors(secondary-dark), .8);
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes srName {
+  0% {
+    text-align: left;
+    opacity: 1;
+    background: none;
+  }
+
+  20% {
+    text-align: left;
+    opacity: 0;
+  }
+
+  40% {
+    text-align: center;
+    opacity: 0;
+    transform: scale(1.2);
+  }
+
+  100% {
+    text-align: center;
+    opacity: 1;
+  }
+}
